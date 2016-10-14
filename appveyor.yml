@@ -68,7 +68,7 @@ install:
 
 test_script:
   - sh ./configure %CONFIGURE_ARGS% --build=%TARGET%
-  - bash -c "make -j$(nproc)"
+  - bash -c "make -j$(nproc) VERBOSE=1"
   - bash -c "make %CHECK% -j$(nproc)"
 
 cache:
