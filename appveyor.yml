@@ -67,8 +67,7 @@ install:
   - if NOT defined MINGW_URL set PATH=C:\msys64\mingw%MSYS_BITS%\bin;C:\msys64\usr\bin;%PATH%
 
 test_script:
-  - >
-    sh ./configure
+  - sh ./configure
           %CONFIGURE_ARGS%
           --build=%TARGET%
           --enable-llvm-assertions
