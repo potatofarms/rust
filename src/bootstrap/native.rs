@@ -95,7 +95,7 @@ pub fn llvm(build: &Build, target: &str) {
         //        actually exists most of the time in normal installs of LLVM.
         let host = build.llvm_out(&build.config.build).join("bin/llvm-tblgen");
         cfg.define("CMAKE_CROSSCOMPILING", "True")
-           .define("LLVM_TABLEGEN", &host)
+           .define("LLVM_TABLEGEN", &host);
     }
 
     // MSVC handles compiler business itself
