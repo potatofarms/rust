@@ -80,7 +80,9 @@ pub fn llvm(build: &Build, target: &str) {
        .define("WITH_POLLY", "OFF")
        .define("LLVM_ENABLE_TERMINFO", "OFF")
        .define("LLVM_ENABLE_LIBEDIT", "OFF")
-       .define("LLVM_PARALLEL_COMPILE_JOBS", build.jobs().to_string());
+       .define("LLVM_PARALLEL_COMPILE_JOBS", build.jobs().to_string())
+       .define("LLVM_TARGET_ARCH", target.split('-').next().unwrap())
+       .define("LLVM_DEFAULT_TARGET_TRIPLE", target);
 
     if target.starts_with("i686") {
         cfg.define("LLVM_BUILD_32_BITS", "ON");
@@ -93,9 +95,7 @@ pub fn llvm(build: &Build, target: &str) {
         //        actually exists most of the time in normal installs of LLVM.
         let host = build.llvm_out(&build.config.build).join("bin/llvm-tblgen");
         cfg.define("CMAKE_CROSSCOMPILING", "True")
-           .define("LLVM_TARGET_ARCH", target.split('-').next().unwrap())
            .define("LLVM_TABLEGEN", &host)
-           .define("LLVM_DEFAULT_TARGET_TRIPLE", target);
     }
 
     // MSVC handles compiler business itself
